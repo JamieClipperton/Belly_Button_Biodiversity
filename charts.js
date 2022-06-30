@@ -34,7 +34,7 @@ function buildMetadata(sample) {
         PANEL.html("");
 
         Object.entries(result).forEach(([key, value]) => {
-            PANEL.append("h6").text('${key.toUpperCase()}: ${value}');
+            PANEL.append("h6").text(`${key.toUpperCase()}: ${value}`);
         });
     });
 }
@@ -49,7 +49,7 @@ function buildCharts(sample) {
         var labels = initialSample.otu_labels;
         var values = initialSample.sample_values;
 
-        var yticks = ids.slice(0,10).map(otuID => 'OTU ${otuID}').reverse();
+        var yticks = ids.slice(0,10).map(otuID => `OTU ${otuID}`).reverse();
 
         var barInfo = [
             {
