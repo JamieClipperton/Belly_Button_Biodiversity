@@ -14,10 +14,10 @@ function init() {
         y: [1, 2, 4, 8, 16]
     }];
     Plotly.newPlot("plot", data);
-};
+  };
 
-d3.selectAll("#dropdownMenu").on("change", updatePlotly);
-function updatePlotly() {
+  d3.selectAll("#dropdownMenu").on("change", updatePlotly);
+  function updatePlotly() {
     var dropdownMenu = d3.select("#dropdownMenu");
     var dataset = dropdownMenu.property("value");
 
