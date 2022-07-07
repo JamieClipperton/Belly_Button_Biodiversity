@@ -44,18 +44,19 @@ function buildCharts(sample) {
     d3.json("samples.json").then((data) => {
         var samples = data.samples;
         var samplesArray = samples.filter(sampleObj => sampleObj.id == sample);
-        var firstSample = samplesArray[0];
+        var Result = samplesArray[0];
 
-        var ids = firstSample.otu_ids;
-        var labels = firstSample.otu_labels;
-        var values = firstSample.sample_values;
+        var ids = Result.otu_ids;
+        var labels = Result.otu_labels;
+        var sampleValues = Result.sample_values.map((value) => parseInt(value));
+
 
         var yticks = ids.slice(0,10).map(otuID => `OTU ${otuID}`).reverse();
 
         var barInfo = [
             {
                 y: yticks,
-                x: values.slice(0, 10).reverse(),
+                x: sampleValues.slice(0, 10).reverse(),
                 text: labels.slice(0, 10).reverse(),
                 type: "bar",
                 orient:"h",
@@ -72,11 +73,11 @@ function buildCharts(sample) {
         var bubbleInfo = [
             {
                 x: ids, 
-                y: values,
+                y: sampleValues,
                 text: labels,
                 mode: "markers",
                 marker: {
-                    size: values,
+                    size: sampleValues,
                     color: ids,
                     colorscale: "viridis"
                 }
