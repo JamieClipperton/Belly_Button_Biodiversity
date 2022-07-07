@@ -1,27 +1,27 @@
 function init() {
-    var grabber = d3.select("#selDataset");
+    var selector = d3.select("#selDataset");
 
     d3.json("samples.json").then((data) => {
-        var sampleInfo = data.names;
+        var sampleNames = data.names;
 
-        sampleInfo.forEach((sample) => {
-            grabber
+        sampleNames.forEach((sample) => {
+            selector
                 .append("option")
                 .text(sample)
                 .property("value", sample);
         });
         
-        var initialSample = sampleInfo[0];
-        buildCharts(initialSample);
-        buildMetadata(initialSample);
+        var firstSample = sampleNames[0];
+        buildCharts(firstSample);
+        buildMetadata(firstSample);
     });
 }
 
 init();
 
-function optionChanged(newInfo) {
-    buildMetadata(newInfo);
-    buildCharts(newInfo);
+function optionChanged(newSample) {
+    buildMetadata(newSample);
+    buildCharts(newSample);
 }
 
 function buildMetadata(sample) {
@@ -36,18 +36,19 @@ function buildMetadata(sample) {
         Object.entries(result).forEach(([key, value]) => {
             PANEL.append("h6").text(`${key.toUpperCase()}: ${value}`);
         });
+
     });
 }
 
 function buildCharts(sample) {
     d3.json("samples.json").then((data) => {
         var samples = data.samples;
-        var samplesArray = samples.filter(sampleObj => sampleOBJ.id == sample);
-        var initialSample = samplesArray[0];
+        var samplesArray = samples.filter(sampleObj => sampleObj.id == sample);
+        var firstSample = samplesArray[0];
 
-        var ids = initialSample.otu_ids;
-        var labels = initialSample.otu_labels;
-        var values = initialSample.sample_values;
+        var ids = firstSample.otu_ids;
+        var labels = firstSample.otu_labels;
+        var values = firstSample.sample_values;
 
         var yticks = ids.slice(0,10).map(otuID => `OTU ${otuID}`).reverse();
 
