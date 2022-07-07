@@ -42,13 +42,13 @@ function init() {
 init();
 
 function init() {
-    var grabber = d3.select("#selDataset");
+    var selector = d3.select("#selDataset");
 
     d3.json("samples.json").then((data) => {
         console.log(data);
-        var sampleInfo = data.names;
-        sampleInfo.forEach((sample) => {
-            grabber
+        var sampleNames = data.names;
+        sampleNames.forEach((sample) => {
+            selector
             .append("option")
             .text(sample)
             .property("value", sample);
@@ -71,7 +71,7 @@ function buildMetadata(sample) {
     });
 }
 
-function optionChanged(newInfo) {
-    buildMetadata(newInfo);
-    // buildCharts(newInfo);
+function optionChanged(newSample) {
+    buildMetadata(newSample);
+    //buildCharts(newSample);
 }
